@@ -2,7 +2,7 @@ rm(list = ls())
 setwd('C:/Users/daess/Desktop/midterm')
 
 #1-(1)
-#291¹ø µ¥ÀÌÅÍ´Â ºñ¾îÀÖ±â ¶§¹®¿¡ Á¦¿Ü
+#291ë²ˆ ë°ì´í„°ëŠ” ë¹„ì–´ìˆê¸° ë•Œë¬¸ì— ì œì™¸
 file_list <- list.files('./prob_1')
 data <- data.frame()
 
@@ -38,7 +38,7 @@ A %>% ggplot(aes(x = date, y = A.return)) +
   theme_bw() +
   theme(axis.text.x = element_blank()) +
   theme(axis.ticks.x = element_blank()) +
-  labs(title = '½Ã°£¿¡ µû¸¥ ¼öÀÍ·üÀÇ º¯È­', x = '½Ã°£', y = '¼öÀÍ·ü')
+  labs(title = 'ì‹œê°„ì— ë”°ë¥¸ ìˆ˜ìµë¥ ì˜ ë³€í™”', x = 'ì‹œê°„', y = 'ìˆ˜ìµë¥ ')
 
 
 #3
@@ -74,7 +74,7 @@ skprt <- prob_4 %>% filter(Country.Region %in% c('Portugal', 'South Korea')) %>%
 skprt
 
 ggplot(skprt, aes(x = month, y = total, group = Country.Region, color = Country.Region)) +
-  geom_line() + labs(title = 'Portugal vs South Korea', x = '¿ù', y = 'È®ÁøÀÚ ¼ö') + 
+  geom_line() + labs(title = 'Portugal vs South Korea', x = 'ì›”', y = 'í™•ì§„ì ìˆ˜') + 
   theme_bw()
 
 
