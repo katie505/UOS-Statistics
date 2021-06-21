@@ -5,20 +5,20 @@ run;
 proc print data = income;
 run;
 
-/*income µ¥ÀÌÅÍ¿¡¼­ 2¹øÂ° ¿­ ownÀ» ºĞ·ù*/
-proc discrim data = income pool = yes out = local; /*pool = yes : ÇÕµ¿°øºĞ»êÀ» ¾²°Ú´Ù.¹«Á¶°Ç ¼±Çü*/
+/*income ë°ì´í„°ì—ì„œ 2ë²ˆì§¸ ì—´ ownì„ ë¶„ë¥˜*/
+proc discrim data = income pool = yes out = local; /*pool = yes : í•©ë™ê³µë¶„ì‚°ì„ ì“°ê² ë‹¤.ë¬´ì¡°ê±´ ì„ í˜•*/
 class own;
 var income size;
 run;
 
 proc discrim data = income pool = yes 
-listerr out = local; /*pool = yes : ÇÕµ¿°øºĞ»êÀ» ¾²°Ú´Ù.*/
+listerr out = local; /*pool = yes : í•©ë™ê³µë¶„ì‚°ì„ ì“°ê² ë‹¤.*/
 class own;
 var income size;
 run;
 
 proc print data = local;
-run; /*°á°úÃ¢¿¡¼­ _INTO_¸¸ º¸¸é µÊ.*/
+run; /*ê²°ê³¼ì°½ì—ì„œ _INTO_ë§Œ ë³´ë©´ ë¨.*/
 
 data test; 
 input xvalues own_test $ income size; 
@@ -54,7 +54,7 @@ run;
 proc discrim data = skull pool = test listerr out = skull_out simple;
 class group;
 var x1--x4;
-priors prop; /*prior¸¦ µ¥ÀÌÅÍ ºñÀ²¿¡ */
+priors prop; /*priorë¥¼ ë°ì´í„° ë¹„ìœ¨ì— */
 run;
 
 /*cross validation*/
