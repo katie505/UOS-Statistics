@@ -8,14 +8,14 @@ library(XML)
 library(readxl)
 library(ggthemes)
 
-# ÇàÁ¤±¸¿ª shp ºÒ·¯¿À±â
-shp <- st_read('./¼­¿ï½Ã3d/ÇàÁ¤±¸¿ª.shp')
+# í–‰ì •êµ¬ì—­ shp ë¶ˆëŸ¬ì˜¤ê¸°
+shp <- st_read('./ì„œìš¸ì‹œ3d/í–‰ì •êµ¬ì—­.shp')
 
 
-# API ÀÎÁõÅ°
-service_key <- '(ÀÎÁõÅ°)'
+# API ì¸ì¦í‚¤
+service_key <- '(ì¸ì¦í‚¤)'
 
-# API ºÒ·¯¿À±â
+# API ë¶ˆëŸ¬ì˜¤ê¸°
 api <- data.frame()
 
 for(i in 0:23){
@@ -30,24 +30,24 @@ for(i in 0:23){
   api = rbind(api, item_dat)
 }
 
-# shp¿Í api¸¦ º¸¸é ÇàÁ¤µ¿ÄÚµå°¡ ¿ÏÀüÈ÷ ´Ù¸£´Ù
-# ¼­¿ï½Ã ¿­¸°µ¥ÀÌÅÍ ±¤Àå¿¡¼­ µÎ ÄÚµå¸¦ ¸ðµÎ °®°í ÀÖ´Â ÇàÁ¤µ¿ÄÚµå_¸ÅÇÎÁ¤º¸ ÀÚ·á ÀÌ¿ë
-code <- read_excel('./ÇàÁ¤µ¿ÄÚµå_¸ÅÇÎÁ¤º¸_20200325.xlsx',
-                   sheet = 'ÇàÁ¤µ¿ÄÚµå',
+# shpì™€ apië¥¼ ë³´ë©´ í–‰ì •ë™ì½”ë“œê°€ ì™„ì „ížˆ ë‹¤ë¥´ë‹¤
+# ì„œìš¸ì‹œ ì—´ë¦°ë°ì´í„° ê´‘ìž¥ì—ì„œ ë‘ ì½”ë“œë¥¼ ëª¨ë‘ ê°–ê³  ìžˆëŠ” í–‰ì •ë™ì½”ë“œ_ë§¤í•‘ì •ë³´ ìžë£Œ ì´ìš©
+code <- read_excel('./í–‰ì •ë™ì½”ë“œ_ë§¤í•‘ì •ë³´_20200325.xlsx',
+                   sheet = 'í–‰ì •ë™ì½”ë“œ',
                    col_names = TRUE)
-code <- code[-1,] %>% select(Åë°èÃ»ÇàÁ¤µ¿ÄÚµå, ÇàÀÚºÎÇàÁ¤µ¿ÄÚµå)
+code <- code[-1,] %>% select(í†µê³„ì²­í–‰ì •ë™ì½”ë“œ, í–‰ìžë¶€í–‰ì •ë™ì½”ë“œ)
 colnames(code) <- c('ADM_CD', 'ADSTRD_CODE_SE')
 
 shp <- merge(shp, code, by = 'ADM_CD')
 
-# ÇÊ¿äÇÑ µ¥ÀÌÅÍ ÃßÃâ
+# í•„ìš”í•œ ë°ì´í„° ì¶”ì¶œ
 data <- api %>% select(STDR_DE_ID, TMZON_PD_SE, ADSTRD_CODE_SE, TOT_LVPOP_CO)
 
-# ÃÑ»ýÈ°ÀÎ±¸¼ö°¡ ¹®ÀÚÇüÀ¸·Î µÇ¾îÀÖ±â ¶§¹®¿¡ ¼ýÀÚÇüÀ¸·Î º¯È¯ÇØÁØ´Ù 
+# ì´ìƒí™œì¸êµ¬ìˆ˜ê°€ ë¬¸ìží˜•ìœ¼ë¡œ ë˜ì–´ìžˆê¸° ë•Œë¬¸ì— ìˆ«ìží˜•ìœ¼ë¡œ ë³€í™˜í•´ì¤€ë‹¤ 
 data$TOT_LVPOP_CO <- as.numeric(data$TOT_LVPOP_CO)
 
 
-# 2¹ø
+# 2ë²ˆ
 setwd('C:/Users/daess/Desktop/final_dv/2/image')
 for (i in 0:23) {
   hour <- sprintf('%02d', i)
@@ -70,7 +70,7 @@ for (i in 0:23) {
   ggsave(fname)
 }
 
-# 3¹ø
+# 3ë²ˆ
 library(rayshader)
 
 for (i in 0:23) {
@@ -97,7 +97,7 @@ for (i in 0:23) {
   }
 }
 
-#gif·Î ¸¸µé±â
+#gifë¡œ ë§Œë“¤ê¸°
 install.packages('av')
 library(av)
 
