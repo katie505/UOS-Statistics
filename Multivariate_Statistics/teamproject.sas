@@ -1,4 +1,4 @@
-/*Ï£ºÏÑ±Î∂ÑÎ∂ÑÏÑù*/
+/* ¡÷º∫∫–∫–ºÆ */
 proc import datafile = 'C:\Users\daess\Desktop\newdata.xls'
 dbms = xls out = c replace;
 run;
@@ -17,7 +17,7 @@ proc princomp data = bb out = bbb;
 var x41 x40 x5 x6 x8 x37 x38;
 run;
 
-/* Îç∞Ïù¥ÌÑ∞ ÎÇ¥Î≥¥ÎÇ¥Í∏∞ */
+/* µ•¿Ã≈Õ ≥ª∫∏≥ª±‚ */
 
 proc export data = bbb
 outfile = 'C:\Users\daess\Desktop\prin.csv'
@@ -25,7 +25,7 @@ dbms = csv replace;
 run;
 
 
-/* √Ü√á¬∫¬∞¬∫√ê¬º¬Æ */
+/* ∆«∫∞∫–ºÆ */
 
 proc import datafile =  'C:\Users\daess\Desktop\realprin.csv'
 dbms = csv replace out = test;
@@ -37,28 +37,16 @@ var prin1 prin2 prin3;
 priors prop;
 run;
 
-proc import datafile =  'C:\Users\daess\Desktop\realprin.csv'
-dbms = csv replace out = test;
-run;
-
 proc discrim data = test listerr pool = test manova out = test_out;
 class group5;
 var prin1 prin2 prin3;
 priors prop;
 run;
 
-proc import datafile =  'C:\Users\daess\Desktop\realprin.csv'
-dbms = csv replace out = test;
-run;
-
 proc discrim data = test listerr pool = test manova out = test_out;
 class group6;
 var prin1 prin2 prin3;
 priors prop;
-run;
-
-proc import datafile =  'C:\Users\daess\Desktop\realprin.csv'
-dbms = csv replace out = test;
 run;
 
 proc discrim data = test listerr pool = test manova out = test_out;
@@ -68,7 +56,7 @@ priors prop;
 run;
 
 
-/* Îç∞Ïù¥ÌÑ∞ */
+/* √ﬂ∞° */
 
 proc import datafile =  'C:\Users\daess\Desktop\prin.csv'
 dbms = csv replace out = aaa;
