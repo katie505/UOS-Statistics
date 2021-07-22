@@ -2,7 +2,7 @@ rm(list=ls())
 setwd('C:/Users/daess/desktop/midterm/data')
 
 #1
-#ÆÄÀÏ ºÒ·¯¿À±â
+#íŒŒì¼ ë¶ˆëŸ¬ì˜¤ê¸°
 bnc <- read.table('./nsc2_edu_bnc.txt', header = TRUE, sep = '|')
 bnd <- read.table('./nsc2_edu_bnd.txt', header = TRUE, sep = '|')
 d20 <- read.table('./nsc2_edu_d20.txt', header = TRUE, sep = ',')
@@ -21,16 +21,16 @@ m60 <- read.table('./nsc2_edu_m60.txt', header = TRUE, sep = '|')
 p20 <- read.table('./nsc2_edu_p20.txt', header = TRUE, sep = ',')
 p30 <- read.table('./nsc2_edu_p30.txt', header = TRUE, sep = '|')
 
-#ÆÄÀÏ ³» °Ç¼ö 
+#íŒŒì¼ ë‚´ ê±´ìˆ˜ 
 nrow(bnc); nrow(bnd); nrow(d20); nrow(d30); nrow(d40); nrow(d60)
 nrow(g1e); nrow(inst); nrow(k20); nrow(k30); nrow(k40); nrow(m20)
 nrow(m30); nrow(m40); nrow(m60); nrow(p20); nrow(p30)
 
 #2
-bnc_RI <- unique(bnc$RN_INDI) #ÀÚ°İ ¹× º¸Çè·áDBÀÇ °³ÀÎ°íÀ¯¹øÈ£ ÁıÇÕ
-bnd_RI<- bnd$RN_INDI #Ãâ»ı ¹× »ç¸ÁDBÀÇ °³ÀÎ°íÀ¯¹øÈ£ ÁıÇÕ
-test <- bnc_RI %in% bnd_RI #µÎ ÁıÇÕ ºñ±³
-length(which(test==FALSE)) #µÎ ÁıÇÕ ³» ¼­·Î ´Ù¸¥ °ªÀÌ ÀÖ´ÂÁö È®ÀÎ
+bnc_RI <- unique(bnc$RN_INDI) #ìê²© ë° ë³´í—˜ë£ŒDBì˜ ê°œì¸ê³ ìœ ë²ˆí˜¸ ì§‘í•©
+bnd_RI<- bnd$RN_INDI #ì¶œìƒ ë° ì‚¬ë§DBì˜ ê°œì¸ê³ ìœ ë²ˆí˜¸ ì§‘í•©
+test <- bnc_RI %in% bnd_RI #ë‘ ì§‘í•© ë¹„êµ
+length(which(test==FALSE)) #ë‘ ì§‘í•© ë‚´ ì„œë¡œ ë‹¤ë¥¸ ê°’ì´ ìˆëŠ”ì§€ í™•ì¸
 
 #3
 library(dplyr)
@@ -47,54 +47,54 @@ table(bnc_sex$SEX)
 bnd %>% filter(DTH_YYYYMM == 2013 & COD2 == 'X60-X84')
 
 #5
-#¿ä¾çÀÏ¼ö Æ÷ÇÔÇÑ µ¥ÀÌÅÍ ÇÕÄ¡±â
+#ìš”ì–‘ì¼ìˆ˜ í¬í•¨í•œ ë°ì´í„° í•©ì¹˜ê¸°
 f20 <- rbind(d20, k20, m20, p20)
 
-#60³â´ë»ı »ıÁ¸ÀÚ °³ÀÎ°íÀ¯¹øÈ£ ÃßÃâ
+#60ë…„ëŒ€ìƒ ìƒì¡´ì ê°œì¸ê³ ìœ ë²ˆí˜¸ ì¶”ì¶œ
 bnd_60 <- bnd %>% filter(BTH_YYYY == 1960 & is.na(DTH_YYYYMM))
 RI_60 <- bnd_60$RN_INDI
 
-#°³ÀÎº° ¿ä¾çÀÏ¼öÀÇ ÇÕ°è °è»ê
+#ê°œì¸ë³„ ìš”ì–‘ì¼ìˆ˜ì˜ í•©ê³„ ê³„ì‚°
 f20_1 <- f20 %>% filter(RN_INDI %in% RI_60)
 f20_1 <- aggregate(MDCARE_DD_CNT ~ RN_INDI, f20_1, sum)
 
-#¿ä¾çÀÏ¼ö°¡ ¾ø´Â »ç¶÷ÀÇ ¿ä¾çÀÏ¼ö 0 Ã³¸®
+#ìš”ì–‘ì¼ìˆ˜ê°€ ì—†ëŠ” ì‚¬ëŒì˜ ìš”ì–‘ì¼ìˆ˜ 0 ì²˜ë¦¬
 tf <- RI_60 %in% f20_1$RN_INDI
 index <- which(tf == FALSE)
 zero <- data.frame(RN_INDI = RI_60[index], MDCARE_DD_CNT = 0)
 f20_2 <- rbind(f20_1, zero)
 
-#°³ÀÎº° ¼ÒµæºĞÀ§ ÃßÃâ
+#ê°œì¸ë³„ ì†Œë“ë¶„ìœ„ ì¶”ì¶œ
 income <- bnc %>% filter(STD_YYYY == 2012 & RN_INDI %in% RI_60 & !is.na(CTRB_Q10))
 
-#°³ÀÎº° ¿ä¾çÀÏ¼ö¿Í ¼ÒµæºĞÀ§ ÇÕÄ¡±â
+#ê°œì¸ë³„ ìš”ì–‘ì¼ìˆ˜ì™€ ì†Œë“ë¶„ìœ„ í•©ì¹˜ê¸°
 income_1 <- income %>% select(RN_INDI, CTRB_Q10)
 fi <- merge(f20_2, income_1, by = 'RN_INDI')
 
-#¼ÒµæºĞÀ§º°·Î °³ÀÎº° ¿ä¾çÀÏ¼ö ÃÑ°è ±¸ÇÏ±â
+#ì†Œë“ë¶„ìœ„ë³„ë¡œ ê°œì¸ë³„ ìš”ì–‘ì¼ìˆ˜ ì´ê³„ êµ¬í•˜ê¸°
 tot <- aggregate(MDCARE_DD_CNT ~ CTRB_Q10, fi, sum)
 
 library(ggplot2)
 ggplot(tot, aes(x = CTRB_Q10, y = MDCARE_DD_CNT)) + geom_line(stat = 'identity') +
   scale_x_discrete(limits = c('1', '2', '3', '4', '5', '6', '7','8', '9', '10')) +
-  labs(x = '¼ÒµæºĞÀ§', y = '°³ÀÎº° ¿ä¾çÀÏ¼ö ÇÕ°è')
+  labs(x = 'ì†Œë“ë¶„ìœ„', y = 'ê°œì¸ë³„ ìš”ì–‘ì¼ìˆ˜ í•©ê³„')
 
 cor(tot)
 
 #6
-#¼Òµæ1ºĞÀ§¿¡ ÀÖ´Â 60³â´ë »ıÁ¸ÀÚ(38¸í)
+#ì†Œë“1ë¶„ìœ„ì— ìˆëŠ” 60ë…„ëŒ€ ìƒì¡´ì(38ëª…)
 s1 <- income %>% filter(CTRB_Q10 == 1) %>% select(RN_INDI)
 s1 <- f20 %>% filter(RN_INDI %in% s1$RN_INDI)
 tot_s1 <- aggregate(ED_RC_TOT_AMT ~ RN_INDI, s1, sum)
 tot_s1 <- sort(tot_s1$ED_RC_TOT_AMT)
 
-#¼Òµæ10ºĞÀ§¿¡ ÀÖ´Â 60³â´ë »ıÁ¸ÀÚ(80¸í)
+#ì†Œë“10ë¶„ìœ„ì— ìˆëŠ” 60ë…„ëŒ€ ìƒì¡´ì(80ëª…)
 s10 <- income %>% filter(CTRB_Q10 == 10) %>% select(RN_INDI)
 s10 <- f20 %>% filter(RN_INDI %in% s10$RN_INDI)
 tot_s10 <- aggregate(ED_RC_TOT_AMT ~ RN_INDI, s10, sum)
 tot_s10 <- sort(tot_s10$ED_RC_TOT_AMT)
 
-#ºĞÆ÷ ±×¸®±â
+#ë¶„í¬ ê·¸ë¦¬ê¸°
 par(mfrow = c(1,2))
-plot(tot_s1, xlab = '¼Òµæ1ºĞÀ§', ylab = '1ÀÎ´ç ½É°á¿ä¾ç±Ş¿©ºñ¿ëÃÑ¾×')
-plot(tot_s10, xlab = '¼Òµæ10ºĞÀ§', ylab = '1ÀÎ´ç ½É°á¿ä¾ç±Ş¿©ºñ¿ëÃÑ¾×')
+plot(tot_s1, xlab = 'ì†Œë“1ë¶„ìœ„', ylab = '1ì¸ë‹¹ ì‹¬ê²°ìš”ì–‘ê¸‰ì—¬ë¹„ìš©ì´ì•¡')
+plot(tot_s10, xlab = 'ì†Œë“10ë¶„ìœ„', ylab = '1ì¸ë‹¹ ì‹¬ê²°ìš”ì–‘ê¸‰ì—¬ë¹„ìš©ì´ì•¡')
